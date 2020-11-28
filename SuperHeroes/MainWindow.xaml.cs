@@ -130,6 +130,7 @@ namespace SuperHeroes
                 cont = listaSuperheroes.Count-1;
             }
             MostrarHeroe(cont);
+
         }
 
         private void anteriorImage_MouseDown(object sender, MouseButtonEventArgs e)
