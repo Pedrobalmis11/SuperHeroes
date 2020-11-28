@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperHeroes"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Superhéroes"
+        Icon="shield.ico"
         Height="780"
         Width="900"
         MinWidth="900"
@@ -111,7 +112,8 @@
             <TabItem Header="Nuevo superhéroe">
 
                 <!--PESTAÑA NUEVO SUPERHEROE-->
-                <Grid Margin="5"
+                <Grid x:Name="contenedorSuperheroesGrid"
+                      Margin="5"
                       DataContext="{StaticResource superheroe}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -121,7 +123,7 @@
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="45"></RowDefinition>
-                        <RowDefinition ></RowDefinition>
+                        <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
 
@@ -282,7 +284,8 @@
                                 BorderThickness="2"
                                 CornerRadius="5"
                                 Background="LightYellow"
-                                Height="650"> <!--Necesito que se adapte-->
+                                Height="650">
+                            <!--Necesito que se adapte-->
 
                             <Image x:Name="muestraImagen"
                                    Source="{Binding ElementName=linkImagenTextBox, Path=Text, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"

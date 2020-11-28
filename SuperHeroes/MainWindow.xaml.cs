@@ -30,10 +30,10 @@ namespace SuperHeroes
         {
 
             InitializeComponent();
-            heroeRadioButton.IsChecked = true;         
- 
+            heroeRadioButton.IsChecked = true;
+           
         }
-
+     
         private void heroeRadioButton_Checked_Unchecked(object sender, RoutedEventArgs e)
         {
             if (heroeRadioButton.IsChecked == true)
@@ -52,12 +52,21 @@ namespace SuperHeroes
 
         private void aceptarButton_Click(object sender, RoutedEventArgs e)
         {
+            
             superheroe = (Superheroe)this.Resources["superheroe"];
             listaSuperheroes.Add(superheroe);
+                      
             MessageBox.Show("Superhéroe insertado con exito", "Superhéroes", MessageBoxButton.OK, MessageBoxImage.Information);
             //Comprobación del objeto
+            /*
+            for (int i = 0; i < listaSuperheroes.Count; i++)
+            {
+                MessageBox.Show(listaSuperheroes[i].Nombre + "\n" + listaSuperheroes[i].Imagen + "\n" + listaSuperheroes[i].Heroe + "\n" + listaSuperheroes[i].Villano + "\n" + listaSuperheroes[i].Vengador + "\n" + listaSuperheroes[i].Xmen, "Superhéroes", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+            
             MessageBox.Show("Nombre: " + superheroe.Nombre + " Imagen: " + superheroe.Imagen + " ¿Vengador?: " + superheroe.Vengador + " ¿XMEN?: " + superheroe.Xmen + " ¿Heroe?: " + superheroe.Heroe + " ¿Villano?: " + superheroe.Villano);
-            Limpiar();
+            */
         }
 
         private void limpiarButton_Click(object sender, RoutedEventArgs e)
@@ -76,31 +85,33 @@ namespace SuperHeroes
 
         private void MostrarHeroe(int heroe)
         {
-            
+            //MessageBox.Show(listaSuperheroes[heroe].Nombre + "\n" + listaSuperheroes[heroe].Imagen + "\n" + listaSuperheroes[heroe].Heroe + "\n" + listaSuperheroes[heroe].Villano + "\n" + listaSuperheroes[heroe].Vengador + "\n" + listaSuperheroes[heroe].Xmen, "Superhéroes", MessageBoxButton.OK, MessageBoxImage.Information);
             //Establecer la paginación con el heroe+1 y el número maximo de heroes de la lista
             paginacionHeroeTextBlock.Text = heroe+1 + "/" + listaSuperheroes.Count;
 
-            //Eliminar los controles dinamicos si los hubiese de los iconos, para que no se acumulen.                 
+            //Eliminar los controles dinamicos si los hubiese de los iconos, para que no se acumulen.       
+            Image iconoVengador = new Image();
+            Image iconoXmen = new Image();
             iconosStackPanel.Children.Clear();
 
             //Establecer el nombre y la imagen del heroe
             nombreHeroeTextBlock.Text = listaSuperheroes[heroe].Nombre;
             heroeImage.Source = new BitmapImage(new Uri(listaSuperheroes[heroe].Imagen, UriKind.Absolute));
-
+                       
             //Si el heroe es un vengador poner el icono de Avengers
             if (listaSuperheroes[heroe].Vengador == true)
             {
-                Image iconoVengador = new Image();
+                
                 iconoVengador.Width = 40;
                 iconoVengador.Source = new BitmapImage(new Uri("avengers.png", UriKind.Relative));
                 iconoVengador.Margin = new Thickness(10);
                 iconosStackPanel.Children.Add(iconoVengador);
 
             }
-            //Si el heroe es un xmen poener el icono de Xmen
+            //Si el heroe es un xmen poner el icono de Xmen
             if (listaSuperheroes[heroe].Xmen == true)
             {
-                Image iconoXmen = new Image();
+                
                 iconoXmen.Width = 50;
                 iconoXmen.Source = new BitmapImage(new Uri("xmen.png", UriKind.Relative));
                 iconoXmen.Margin = new Thickness(10);
@@ -117,6 +128,8 @@ namespace SuperHeroes
             {
                 fondoHeroeVillanoGrid.Background = new SolidColorBrush(Colors.IndianRed);
             }
+            
+
         }
 
 
