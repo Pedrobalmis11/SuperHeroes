@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SuperHeroes
 {
     class Superheroe : INotifyPropertyChanged
-    {
+    {   
 
         private string _nombre;
 
@@ -82,7 +82,13 @@ namespace SuperHeroes
             {
                 _villano = value;
                 NotifyPropertyChanged("Villano");
-
+                if (_villano == true)
+                {
+                    Xmen = false;                  
+                    Vengador = false;
+                    
+                }
+                
             }
         }
 
@@ -122,5 +128,6 @@ namespace SuperHeroes
 
             return ejemplos;
         }
+
     }
 }

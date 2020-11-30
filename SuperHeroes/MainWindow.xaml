@@ -12,7 +12,9 @@
         MinWidth="900"
         MinHeight="780">
     <Window.Resources>
-        <local:Superheroe x:Key="superheroe"></local:Superheroe>
+        <local:Superheroe x:Key="superheroe" Heroe="True"></local:Superheroe>
+        <local:FondoConverter x:Key="fondoColor"></local:FondoConverter>
+        <local:VisibilidadConverter x:Key="visibilidadIcono"></local:VisibilidadConverter>
     </Window.Resources>
     <Grid>
         <TabControl SelectionChanged="TabControl_SelectionChanged"
@@ -21,7 +23,7 @@
                 <!--PESTAÑA VER SUPERHEROES-->
 
                 <Grid x:Name="fondoHeroeVillanoGrid"
-                      Background="PaleGreen">
+                      Background="{Binding Path=Heroe, Converter={StaticResource fondoColor}}">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -38,7 +40,7 @@
                     <TextBlock x:Name="nombreHeroeTextBlock"
                                Grid.Row="0"
                                Grid.Column="0"
-                               Text="Nombre Héroe"
+                               Text="{Binding Path=Nombre}"
                                FontSize="35"
                                FontFamily="Arial Black"
                                Foreground="white"
@@ -54,12 +56,28 @@
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Right">
 
+                        <Image x:Name="vengadorImage"
+                               Width="40"
+                               Source="avengers.png"
+                               Visibility="{Binding Path=Vengador, Converter={StaticResource visibilidadIcono}}"
+                               >
+                            
+                        </Image>
+
+                        <Image x:Name="xmenImage"
+                               Width="60"
+                               Source="xmen.png"
+                               Visibility="{Binding Path=Xmen, Converter={StaticResource visibilidadIcono}}">
+
+                        </Image>
+
                     </StackPanel>
 
 
                     <Image x:Name="heroeImage"
                            Grid.Row="1"
                            Grid.Column="0"
+                           Source="{Binding Path=Imagen}"
                            Grid.ColumnSpan="2"
                            Stretch="Fill"
                            Margin="10">
@@ -114,7 +132,7 @@
                 <!--PESTAÑA NUEVO SUPERHEROE-->
                 <Grid x:Name="contenedorSuperheroesGrid"
                       Margin="5"
-                      DataContext="{StaticResource superheroe}">
+                      DataContext="{DynamicResource superheroe}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
@@ -201,9 +219,7 @@
                             </Border.Effect>
 
                             <StackPanel Margin="5">
-                                <RadioButton x:Name="heroeRadioButton"
-                                             Checked="heroeRadioButton_Checked_Unchecked"
-                                             Unchecked="heroeRadioButton_Checked_Unchecked"
+                                <RadioButton x:Name="heroeRadioButton"                                         
                                              GroupName="Heroes_y_Villanos"
                                              IsChecked="{Binding Path=Heroe}"
                                              Content="Héroe">
@@ -229,7 +245,8 @@
                                 <DropShadowEffect />
                             </Border.Effect>
 
-                            <StackPanel Margin="5">
+                            <StackPanel Margin="5"
+                                        IsEnabled="{Binding Path=Heroe}">
                                 <CheckBox x:Name="vengadoresCheckBox"
                                           Content="Vengadores"
                                           IsChecked="{Binding Path=Vengador}">
