@@ -73,6 +73,15 @@
                     Value="25"></Setter>
         </Style>
 
+        <!--ESTILO TOOLTIP-->
+        <Style TargetType="Image"
+               x:Key="infoImage">
+            <Setter Property="Source"
+                    Value="info.png"></Setter>
+            <Setter Property="Width"
+                    Value="20"></Setter>
+        </Style>
+
 
     </Window.Resources>
     <Grid>
@@ -208,9 +217,8 @@
                             <TextBlock Text="Nombre del superhéroe">
 
                             </TextBlock>
-                            <Image Source="info.png"
-                                   Width="20"
-                                   ToolTip="Nombre del superhéroe en inglés">
+                            <Image Style="{StaticResource infoImage}"
+                                ToolTip="Nombre del superhéroe en inglés">
 
                             </Image>
 
@@ -233,9 +241,8 @@
                             <TextBlock Text="Imagen">
 
                             </TextBlock>
-                            <Image Source="info.png"
-                                   Width="20"
-                                   ToolTip="Imagen del superhéroe en formato comic">
+                            <Image Style="{StaticResource infoImage}"
+                                ToolTip="Imagen del superhéroe en formato comic">
 
                             </Image>
 
