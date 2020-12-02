@@ -12,9 +12,68 @@
         MinWidth="900"
         MinHeight="780">
     <Window.Resources>
-        <local:Superheroe x:Key="superheroe" Heroe="True"></local:Superheroe>
+        <local:Superheroe x:Key="superheroe"
+                          Heroe="True"></local:Superheroe>
         <local:FondoConverter x:Key="fondoColor"></local:FondoConverter>
         <local:VisibilidadConverter x:Key="visibilidadIcono"></local:VisibilidadConverter>
+
+        <!--ESTILO BORDES GENERALES-->
+        <Style TargetType="Border">
+            <Setter Property="BorderBrush"
+                    Value="Black"></Setter>
+
+            <Setter Property="BorderThickness"
+                    Value="2"></Setter>
+
+            <Setter Property="Margin"
+                    Value="0,0,10,0"></Setter>
+
+            <Setter Property="Background"
+                    Value="White"></Setter>
+
+        </Style>
+
+        <!--ESTILO BORDE PREVISUALIZACION IMG-->
+        <Style TargetType="Border"
+               x:Key="estiloPrevBorder"
+               BasedOn="{StaticResource {x:Type Border}}">
+            <Setter Property="Background"
+                    Value="LightYellow">
+
+            </Setter>
+
+            <Setter Property="CornerRadius"
+                    Value="5">
+
+            </Setter>
+
+            <Setter Property="Height"
+                    Value="650"></Setter>
+
+        </Style>
+
+        <!--ESTILO IMG FLECHAS-->
+        <Style TargetType="Image"
+               x:Key="flechasEstiloImgaen">
+            <Setter Property="Source"
+                    Value="arrow.png"></Setter>
+            <Setter Property="Width"
+                    Value="30"></Setter>
+            <Setter Property="Margin"
+                    Value="5"></Setter>
+        </Style>
+
+        <!--ESTILO BOTONES-->
+        <Style TargetType="Button">
+            <Setter Property="Margin"
+                    Value="5"></Setter>
+            <Setter Property="Width"
+                    Value="100"></Setter>
+            <Setter Property="Height"
+                    Value="25"></Setter>
+        </Style>
+
+
     </Window.Resources>
     <Grid>
         <TabControl SelectionChanged="TabControl_SelectionChanged"
@@ -59,9 +118,8 @@
                         <Image x:Name="vengadorImage"
                                Width="40"
                                Source="avengers.png"
-                               Visibility="{Binding Path=Vengador, Converter={StaticResource visibilidadIcono}}"
-                               >
-                            
+                               Visibility="{Binding Path=Vengador, Converter={StaticResource visibilidadIcono}}">
+
                         </Image>
 
                         <Image x:Name="xmenImage"
@@ -90,10 +148,8 @@
                                 HorizontalAlignment="Center">
 
                         <Image x:Name="anteriorImage"
-                               Source="arrow.png"
-                               Width="30"
-                               MouseDown="anteriorImage_MouseDown"
-                               Margin="5">
+                               Style="{StaticResource flechasEstiloImgaen}"
+                               MouseDown="anteriorImage_MouseDown">
 
                         </Image>
 
@@ -103,9 +159,7 @@
                                    VerticalAlignment="Center"></TextBlock>
 
                         <Image x:Name="siguienteImage"
-                               Source="arrow.png"
-                               Width="30"
-                               Margin="5"
+                               Style="{StaticResource flechasEstiloImgaen}"
                                MouseDown="siguienteImage_MouseDown"
                                RenderTransformOrigin="0.5,0.5">
                             <Image.RenderTransform>
@@ -209,17 +263,13 @@
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <Border BorderBrush="Black"
-                                BorderThickness="2"
-                                Margin="0,0,10,0"
-                                Background="White"
-                                Grid.Column="0">
+                        <Border Grid.Column="0">
                             <Border.Effect>
                                 <DropShadowEffect />
                             </Border.Effect>
 
                             <StackPanel Margin="5">
-                                <RadioButton x:Name="heroeRadioButton"                                         
+                                <RadioButton x:Name="heroeRadioButton"
                                              GroupName="Heroes_y_Villanos"
                                              IsChecked="{Binding Path=Heroe}"
                                              Content="Héroe">
@@ -237,10 +287,7 @@
                         </Border>
 
 
-                        <Border BorderBrush="Black"
-                                BorderThickness="2"
-                                Background="White"
-                                Grid.Column="1">
+                        <Border Grid.Column="1">
                             <Border.Effect>
                                 <DropShadowEffect />
                             </Border.Effect>
@@ -273,20 +320,14 @@
 
                         <Button x:Name="aceptarButton"
                                 Content="Aceptar"
-                                Margin="5"
                                 IsDefault="True"
-                                Width="100"
-                                Height="25"
                                 Click="aceptarButton_Click">
 
                         </Button>
 
                         <Button x:Name="limpiarButton"
                                 Content="Limpiar"
-                                Margin="5"
                                 IsCancel="True"
-                                Width="100"
-                                Height="25"
                                 Click="limpiarButton_Click">
 
                         </Button>
@@ -297,11 +338,7 @@
                                 Grid.Column="1"
                                 Grid.RowSpan="4">
 
-                        <Border BorderBrush="Black"
-                                BorderThickness="2"
-                                CornerRadius="5"
-                                Background="LightYellow"
-                                Height="650">
+                        <Border Style="{StaticResource estiloPrevBorder}">
                             <!--Necesito que se adapte-->
 
                             <Image x:Name="muestraImagen"
