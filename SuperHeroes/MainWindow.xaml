@@ -11,6 +11,22 @@
         Width="900"
         MinWidth="900"
         MinHeight="780">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="local:CustomCommands.Añadir"
+                        Executed="Añadir_Executed">
+        </CommandBinding>
+        <CommandBinding Command="local:CustomCommands.Limpiar"
+                        Executed="Limpiar_Executed">
+        </CommandBinding>
+        <CommandBinding Command="local:CustomCommands.Siguiente"
+                        Executed="Siguiente_Executed">
+        </CommandBinding>
+        <CommandBinding Command="local:CustomCommands.Anterior"
+                        Executed="Anterior_Executed">
+        </CommandBinding>
+    </Window.CommandBindings>
+
     <Window.Resources>
         <local:Superheroe x:Key="superheroe"
                           Heroe="True"></local:Superheroe>
@@ -85,13 +101,12 @@
 
     </Window.Resources>
     <Grid>
-        <TabControl SelectionChanged="TabControl_SelectionChanged"
-                    Margin="10">
+        <TabControl Margin="10">
             <TabItem Header="Ver superhéroes">
                 <!--PESTAÑA VER SUPERHEROES-->
 
                 <Grid x:Name="fondoHeroeVillanoGrid"
-                      Background="{Binding Path=Heroe, Converter={StaticResource fondoColor}}">
+                      Background="{Binding Path=Actual.Heroe, Converter={StaticResource fondoColor}}">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -108,7 +123,7 @@
                     <TextBlock x:Name="nombreHeroeTextBlock"
                                Grid.Row="0"
                                Grid.Column="0"
-                               Text="{Binding Path=Nombre}"
+                               Text="{Binding Path=Actual.Nombre}"
                                FontSize="35"
                                FontFamily="Arial Black"
                                Foreground="white"
@@ -127,14 +142,14 @@
                         <Image x:Name="vengadorImage"
                                Width="40"
                                Source="avengers.png"
-                               Visibility="{Binding Path=Vengador, Converter={StaticResource visibilidadIcono}}">
+                               Visibility="{Binding Path=Actual.Vengador, Converter={StaticResource visibilidadIcono}}">
 
                         </Image>
 
                         <Image x:Name="xmenImage"
                                Width="60"
                                Source="xmen.png"
-                               Visibility="{Binding Path=Xmen, Converter={StaticResource visibilidadIcono}}">
+                               Visibility="{Binding Path=Actual.Xmen, Converter={StaticResource visibilidadIcono}}">
 
                         </Image>
 
@@ -144,7 +159,7 @@
                     <Image x:Name="heroeImage"
                            Grid.Row="1"
                            Grid.Column="0"
-                           Source="{Binding Path=Imagen}"
+                           Source="{Binding Path=Actual.Imagen}"
                            Grid.ColumnSpan="2"
                            Stretch="Fill"
                            Margin="10">
@@ -156,33 +171,51 @@
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Center">
 
-                        <Image x:Name="anteriorImage"
-                               Style="{StaticResource flechasEstiloImgaen}"
-                               MouseDown="anteriorImage_MouseDown">
+                        <Button Command="local:CustomCommands.Anterior"
+                                Width="25">
+                            <Image x:Name="anteriorImage"
+                                   Style="{StaticResource flechasEstiloImgaen}">
 
-                        </Image>
+                            </Image>
+                        </Button>
 
-                        <TextBlock x:Name="paginacionHeroeTextBlock"
+
+                        <TextBlock x:Name="heroeActualTextBlock"
+                                   FontSize="25"
+                                   FontWeight="Bold"
+                                   Text="{Binding Path=SuperHeroeActual}"
+                                   VerticalAlignment="Center"></TextBlock>
+
+                        <TextBlock Text="/"
                                    FontSize="25"
                                    FontWeight="Bold"
                                    VerticalAlignment="Center"></TextBlock>
 
-                        <Image x:Name="siguienteImage"
-                               Style="{StaticResource flechasEstiloImgaen}"
-                               MouseDown="siguienteImage_MouseDown"
-                               RenderTransformOrigin="0.5,0.5">
-                            <Image.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleY="1"
-                                                    ScaleX="-1" />
-                                    <SkewTransform AngleY="0"
-                                                   AngleX="0" />
-                                    <RotateTransform Angle="0" />
-                                    <TranslateTransform />
-                                </TransformGroup>
-                            </Image.RenderTransform>
+                        <TextBlock x:Name="heroesTotalesTextBlock"
+                                   FontSize="25"
+                                   FontWeight="Bold"
+                                   Text="{Binding Path=NumeroSuperHeroes}"
+                                   VerticalAlignment="Center"></TextBlock>
 
-                        </Image>
+                        <Button Command="local:CustomCommands.Siguiente"
+                                Width="25">
+                            <Image x:Name="siguienteImage"
+                                   Style="{StaticResource flechasEstiloImgaen}"
+                                   RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="1"
+                                                        ScaleX="-1" />
+                                        <SkewTransform AngleY="0"
+                                                       AngleX="0" />
+                                        <RotateTransform Angle="0" />
+                                        <TranslateTransform />
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+
+                            </Image>
+                        </Button>
+
 
                     </StackPanel>
                 </Grid>
@@ -195,7 +228,7 @@
                 <!--PESTAÑA NUEVO SUPERHEROE-->
                 <Grid x:Name="contenedorSuperheroesGrid"
                       Margin="5"
-                      DataContext="{DynamicResource superheroe}">
+                      DataContext="{Binding Path=NuevoSuperHeroe}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
@@ -218,7 +251,7 @@
 
                             </TextBlock>
                             <Image Style="{StaticResource infoImage}"
-                                ToolTip="Nombre del superhéroe en inglés">
+                                   ToolTip="Nombre del superhéroe en inglés">
 
                             </Image>
 
@@ -242,7 +275,7 @@
 
                             </TextBlock>
                             <Image Style="{StaticResource infoImage}"
-                                ToolTip="Imagen del superhéroe en formato comic">
+                                   ToolTip="Imagen del superhéroe en formato comic">
 
                             </Image>
 
@@ -328,14 +361,14 @@
                         <Button x:Name="aceptarButton"
                                 Content="Aceptar"
                                 IsDefault="True"
-                                Click="aceptarButton_Click">
+                                Command="local:CustomCommands.Añadir">
 
                         </Button>
 
                         <Button x:Name="limpiarButton"
                                 Content="Limpiar"
                                 IsCancel="True"
-                                Click="limpiarButton_Click">
+                                Command="local:CustomCommands.Limpiar">
 
                         </Button>
 
